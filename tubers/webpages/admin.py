@@ -4,7 +4,6 @@ from django.utils.html import format_html
 # Register your models here.
 
 class TeamAdmin(admin.ModelAdmin):
-
     def myphoto(self, object):
         return format_html('<img src="{}" width="40" />'.format(object.photo.url))
 
