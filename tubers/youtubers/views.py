@@ -1,11 +1,21 @@
-from django.shortcuts import render
-# from .models import Youtuber, Team
+from django.shortcuts import render, get_object_or_404
+from .models import Youtuber
 
 # Create your views here.
 def youtubers(request):
-    pass
+    ytubers = Youtuber.objects.order_by('-created_at')
+    data = {
+        'ytubers' : ytubers
+    }
+    return render(request, 'youtubers/youtubers.html', data)
 
 def youtubers_detail(request, id):
-    pass
+    ytuber = get_object_or_404(Youtuber, pk=id)
+    print(ytuber)
+    data = {
+        'ytuber' : ytuber
+    }
+    return render(request, 'youtubers/youtuber.html', data)
+
 def search(request):
     pass
