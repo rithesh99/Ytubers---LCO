@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+ <main class="searchpage">
+    <div class="banner">
+      <img src="{% static './assets/images/bg-banner.png' %}" alt="" class="img-fluid w-100">
+      <h1 class="text-center">
+        Search Result
+      </h1>
+    </div>
+
+    <section class="searchbox container mt-5 p-3 bg-accent">
+      <form method="GET" action="{% url 'search' %}">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <select id="inputState" class="form-control" name="city">
+              <option selected disabled hidden>City</option>
+              {% for c in city_options %}
+                <option value={{ c }}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <select id="inputState" class="form-control"  name="camera">
+              <option selected disabled hidden>Camera Type</option>
+                {% for c in camera_options %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <select class="form-control" name="category">
+              <option selected disabled hidden>Category</option>
+                {% for c in category_options %}
+                <option>{{ c }}</option>
+                {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-light">Search</button>
+          </div>
+      </form>
+      
+    </section>
+
+
+
+    <section class="search-results container mt-3 grid">
+
+        {% for ytuber in ytubers %}
+        <div class="card border-0 text-center">
+          <div class="feature-text">
+            <a href="{% url 'youtubers_detail' ytuber.id %}">
+                <img src="{{ ytuber.photo.url }}" class="card-img-top" alt="team-member">
+                {% if ytuber.is_featured %}
+                <span class="text-left bg-accent font-weight-bold">
+                Featured
+                </span>
+                {% endif %}
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ ytuber.name }}</h5>
+            <p class="card-text">{{ ytuber.category }}</p>
+            <div class="person-description mt-2">
+              <button class="btn btn-accent"> City: {{ ytuber.city }} </button>
+              <button class="btn btn-accent"> Age: {{ ytuber.age }} </button>
+              <button class="btn btn-accent"> Height: {{ ytuber.height }} </button>
+            </div>
+            <div class="person-description mt-2">
+              <button class="btn btn-accent"> Crew: {{ ytuber.crew }} </button>
+              <button class="btn btn-accent"> Camera: {{ ytuber.camera_type }} </button>
+              <button class="btn btn-accent"> Subs: {{ ytuber.subs_count }} </button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+    </section>
+  </main>
+
+  {% endblock %}
