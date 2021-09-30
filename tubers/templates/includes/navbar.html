@@ -21,7 +21,7 @@
             <a class="nav-link" href="{% url 'youtubers' %}">Tubers</a>
           </li>
           <li class="nav-item {% if request.path == '/services' %}active{% endif %}">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
           </li>
           <li class="nav-item {% if request.path == '/contact' %}active{% endif %}">
             <a class="nav-link" href="{% url 'contact' %}">Contact</a>

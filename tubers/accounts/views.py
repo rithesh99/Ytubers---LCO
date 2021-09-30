@@ -17,7 +17,7 @@ def signin(request):
             messages.success(request, 'Sign in success')
             return redirect('dashboard')
         else:
-            messages.success(request, 'Invalid credentials')
+            messages.warning(request, 'Invalid credentials')
             return redirect('signin')
 
     return render(request, 'accounts/signin.html')
@@ -32,15 +32,15 @@ def signup(request):
         confirm_password = request.POST['confirm_password']
 
         if not(firstname) or not(lastname) or not(username) or not(email) or not(password): 
-            messages.error(request,'Please enter valid details')
+            messages.warning(request,'Please enter valid details')
             return redirect('signup')
 
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
-                messages.error(request,'Username already exists')
+                messages.warning(request,'Username already exists')
                 return redirect('signup')
             if User.objects.filter(email=email).exists():
-                messages.error(request,'Email already exists')
+                messages.warning(request,'Email already exists')
                 return redirect('signup')
 
             user = User.objects.create_user(first_name=firstname, last_name=lastname, username=username, email=email, password=password)
@@ -49,7 +49,7 @@ def signup(request):
             return redirect('signin')
                 
         else:
-            messages.error(request, 'Password do not match')
+            messages.warning(request, 'Password do not match')
             return redirect('signup')
 
     return render(request, 'accounts/signup.html')

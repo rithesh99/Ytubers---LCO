@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('webpages.urls')),
     path('youtubers/', include('youtubers.urls')),
     path('user/', include('accounts.urls')),
+    path('hiretubers/', include('hiretubers.urls')),
     path('accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
