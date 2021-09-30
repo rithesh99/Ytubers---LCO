@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def signin(request):
@@ -57,6 +58,7 @@ def logout_user(request):
     logout(request)
     return redirect('signin')
 
+@login_required(login_url='signin')
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
